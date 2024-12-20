@@ -14,7 +14,7 @@ public class Loan {
         this.book = book;
         this.nameClient = nameClient;
         this.loanDate = loanDate;
-        this.returnDate = returnDate.plusDays(7);
+        this.returnDate = loanDate.plusDays(7);
     }
 
     public Book getBook() {
@@ -36,6 +36,9 @@ public class Loan {
     public LocalDate getReturnDate() {
         return returnDate;
     }
+
+
+
 
     @Override
     public String toString() {
