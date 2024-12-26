@@ -7,9 +7,20 @@ public class Library {
     private List<Book> books = new ArrayList<>();
     private List<Author> authors = new ArrayList<>();
     private List<Loan> loans = new ArrayList<>();
+    private List<Client> clients = new ArrayList<>();
 
     public void addNewBook(Book book) {
         books.add(book);
+    }
+
+    public void addNewClient(Client client) {
+        clients.add(client);
+    }
+
+    public List<Client> getAllClientsAvailable() {
+        List<Client> allRegisteredCustomers = new ArrayList<>();
+        allRegisteredCustomers.addAll(clients);
+        return allRegisteredCustomers;
     }
 
     public List<Book> getAllBooksAvailable() {
@@ -30,7 +41,18 @@ public class Library {
         return availableBooks;
     }
 
-    public void borrowTheBook(UUID idBook, String clientName) {
+    public Client searchForIdClient(UUID idClient) {
+        for(Client client:clients) {
+            if(client.getIdClient().equals(idClient)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
+
+    public void borrowTheBook(UUID idBook, UUID idClient) {
+
         for(Book book: books) {
             if(book.getIdBook().equals(idBook)) {
                 if(!book.isAvailable()) {
@@ -38,9 +60,9 @@ public class Library {
                     return;
                 }
                 book.setAvailable(false);
-                Loan loan = new Loan(book, clientName, LocalDate.now());
+                Loan loan = new Loan(book,searchForIdClient(idClient), LocalDate.now());
                 loans.add(loan);
-                System.out.println("Empréstimo realizado com sucesso para '" + book.getBookTitle() + "' ao usuário " + clientName + ".");
+                System.out.println("Empréstimo realizado com sucesso para '" + book.getBookTitle() + "' ao usuário " + idClient + ".");
                 return;
             }
 

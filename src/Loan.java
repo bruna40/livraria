@@ -4,13 +4,13 @@ import java.util.UUID;
 public class Loan {
     private UUID idLoan = UUID.randomUUID();
     private Book book;
-    private String nameClient;
+    private Client client;
     private LocalDate loanDate = LocalDate.now();
     private LocalDate returnDate;
 
-    Loan(Book book, String nameClient, LocalDate loanDate){
+    Loan(Book book, Client client, LocalDate loanDate){
         this.book = book;
-        this.nameClient = nameClient;
+        this.client = client;
         this.loanDate = loanDate;
         this.returnDate = loanDate.plusDays(7);
     }
@@ -27,8 +27,8 @@ public class Loan {
         return idLoan;
     }
 
-    public String getNameClient() {
-        return nameClient;
+    public Client getNameClient() {
+        return client;
     }
 
     public LocalDate getReturnDate() {
@@ -43,7 +43,7 @@ public class Loan {
         return "Loan{" +
                 "idLoan=" + idLoan +
                 ", book=" + book.getBookTitle() +
-                ", nameClient='" + nameClient + '\'' +
+                ", nameClient='" + client + '\'' +
                 ", loanDate=" + loanDate +
                 ", returnDate=" + returnDate +
                 '}';
