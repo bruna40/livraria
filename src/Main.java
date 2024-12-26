@@ -5,11 +5,18 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-
+    public static boolean isvalidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     public static void listAvalableBooks (List<Book> availableBooks) {
         for(int i=0; i < availableBooks.size(); i++) {
@@ -123,8 +130,18 @@ public class Main {
                     bookstoreMenu.nextLine();
                     System.out.println("Digite o nome do Cliente:");
                     String nameClient = bookstoreMenu.nextLine();
-                    System.out.println("Digite o email do cliente:");
-                    String emailClient = bookstoreMenu.nextLine();
+                    String emailClient;
+                    while (true) {
+                        System.out.println("Digite o email do cliente:");
+                        emailClient = bookstoreMenu.nextLine();
+
+                        if (isvalidEmail(emailClient)) {
+                            break;
+                        } else {
+                            System.out.println("E-mail inválido! Por favor, insira um e-mail válido.");
+                        }
+                    }
+
                     System.out.println("Digite a data de nascimento do cliente: dd/mm/yyyy");
                     String dateOfBirth = bookstoreMenu.nextLine();
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
